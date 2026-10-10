@@ -1,0 +1,32 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Please enter your details to sign in</p>
+
+  @if (errorMessage()) {
+    <div class="alert alert-danger">{{ errorMessage() }}</div>
+  }
+
+    <form [formGroup].="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" />
+        @if (loginForm.controls.username.touched && loginForm.controls.username.errors?.['required']) {
+          <small class="error">Username is required.</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" />
+        @if (loginForm.controls.password.touched && loginForm.controls.password.errors?.['required']) {
+          <small class="error">Password is required.</small>
+        }
+      </div>
+
+      <button type="submit" [disabled]="isLoading()">
+        {{ isLoading() ? 'Logging in...' : 'Submit' }}
+      </button>
+    </form>
+  </div>
+</div>
